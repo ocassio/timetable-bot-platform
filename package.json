@@ -1,0 +1,19 @@
+{
+  "name": "timetable-bot-platform",
+  "displayName": "Timetable Bot Platform",
+  "author": "Alexander Ionov",
+  "description": "Volga Region University of Service Timetable Platform",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.15.3",
+    "knex": "^0.13.0",
+    "moment": "^2.18.1",
+    "pg": "^6.4.0",
+    "request": "^2.81.0"
+  }
+}
