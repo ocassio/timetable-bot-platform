@@ -1,24 +1,27 @@
 const { Router } = require('express')
 
-const mainMenuAction  = require('../../actions/main-menu.action')
-const settingsAction  = require('../../actions/settings.action')
-const timetableAction = require('../../actions/timetable.action')
+const actions = require('../../actions')
 
 const router = Router()
 
-router.get('/main-menu', (request, response) => dispatch(request, response, mainMenuAction))
-router.get('/settings',  (request, response) => dispatch(request, response, settingsAction))
-router.get('/timetable', (request, response) => dispatch(request, response, timetableAction))
+for (let [name, action] of actions) {
+    router.get(`/${name}`, (request, response) => dispatch(request, response, action))
+}
 
 async function dispatch(request, response, action) {
+    const params = Object.assign({}, request.query, request.params)
     try {
-        const params = Object.assign({}, request.query, request.params)
         let result = action(params)
         if (result instanceof Promise) {
             result = await result
         }
         response.send(result)
     } catch (e) {
+        console.error(
+            'Error executing:\n',
+            `Request: ${request.originalUrl}\n`,
+            `Params: ${JSON.stringify(params)}\n`,
+            e)
         response.send(500, 'Oops, something went wrong')
     }
 }
