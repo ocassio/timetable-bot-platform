@@ -3,7 +3,10 @@ const session = {}
 class SessionService {
 
     static getParams(userId) {
-        return session[userId] || {}
+        if (!session[userId]) {
+            session[userId] = {}
+        }
+        return session[userId]
     }
 
     static getParam(userId, name) {

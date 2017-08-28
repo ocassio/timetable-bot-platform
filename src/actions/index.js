@@ -1,6 +1,6 @@
 module.exports = [
-    ['main-menu', require('./main-menu.action')],
-    ['settings',  require('./settings.action') ],
-    ['timetable', require('./timetable.action')],
-    ['text',      require('./text.action')     ]
+    require('./main-menu.action'),
+    require('./settings.action'),
+    require('./timetable.action'),
+    require('./response.action')
 ]
