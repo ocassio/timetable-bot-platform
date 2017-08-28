@@ -1,6 +1,10 @@
-async function timetableAction({userId}) {
-    return {
-        message: 'Расписание'
+const timetableAction = {
+    name: 'timetable',
+
+    execute({ userId }) {
+        return {
+            message: 'Расписание'
+        }
     }
 }
 
