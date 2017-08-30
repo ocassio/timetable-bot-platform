@@ -6,6 +6,11 @@ const { LAST_ACTION } = require('../../consts/session.consts')
 
 const router = Router()
 
+router.get('/', (request, response) => {
+    const actionNames = actions.map(action => action.name)
+    response.send(actionNames)
+})
+
 actions.forEach(action => {
     router.get(`/${action.name}`, (request, response) => dispatch(request, response, action))
 })
