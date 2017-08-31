@@ -3,7 +3,9 @@ const timetableAction = {
 
     execute({ userId }) {
         return {
-            message: 'Расписание'
+            messages: [
+                'Расписание'
+            ]
         }
     }
 }

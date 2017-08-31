@@ -8,7 +8,9 @@ const settingsAction = {
         const preferences = await DBService.getPreferences(userId)
         return {
             title: 'Настройки',
-            message: preferences,
+            messages: [
+                preferences
+            ],
             buttons: [
                 {
                     label: 'Выбрать критерий',

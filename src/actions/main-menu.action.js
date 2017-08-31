@@ -5,7 +5,9 @@ const mainMenuAction = {
     execute() {
         return {
             title: 'Главное меню',
-            message: 'Выберите желаемое действие',
+            messages: [
+                'Выберите желаемое действие'
+            ],
             buttons: [
                 {
                     label: 'Расписание на сегодня',
