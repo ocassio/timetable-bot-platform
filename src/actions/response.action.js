@@ -6,7 +6,11 @@ const responseAction = {
     name: 'response',
 
     execute({ userId }) {
-        return SessionService.getParam(userId, LAST_ACTION)
+        return {
+            messages: [
+                SessionService.getParam(userId, LAST_ACTION)
+            ]
+        }
     }
 }
 
