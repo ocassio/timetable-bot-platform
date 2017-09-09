@@ -1,6 +1,8 @@
+const settingsAction = require('./settings.action')
+
 const mainMenuAction = {
 
-    name: 'main-menu',
+    name: 'mainMenu',
 
     execute() {
         return {
@@ -19,7 +21,7 @@ const mainMenuAction = {
                 },
                 {
                     label: 'Настройки',
-                    action: 'settings'
+                    action: settingsAction.name
                 }
             ]
         }
