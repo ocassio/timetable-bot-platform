@@ -1,5 +1,8 @@
+const { TIMETABLE_ACTION } = require('../consts/actions.consts')
+
 const timetableAction = {
-    name: 'timetable',
+    
+    name: TIMETABLE_ACTION,
 
     execute({ userId }) {
         return {

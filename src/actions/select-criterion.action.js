@@ -1,9 +1,14 @@
-const setGroupAction = require('./set-group.action')
-const settingsAction = require('./settings.action')
+const { 
+    SELECT_CRITERION_ACTION,
+    SET_GROUP_ACTION,
+    SET_ROOM_ACTION,
+    SET_TEACHER_ACTION,
+    SETTINGS_ACTION
+} = require('../consts/actions.consts')
 
 const selectCriterionAction = {
 
-    name: 'selectCriterion',
+    name: SELECT_CRITERION_ACTION,
 
     execute() {
         return {
@@ -13,19 +18,19 @@ const selectCriterionAction = {
             buttons: [
                 {
                     label: 'Группа',
-                    action: setGroupAction.name
+                    action: SET_GROUP_ACTION
                 },
                 {
                     label: 'Преподаватель',
-                    action: 'setTeacher'
+                    action: SET_TEACHER_ACTION
                 },
                 {
                     label: 'Аудитория',
-                    action: 'setRoom'
+                    action: SET_ROOM_ACTION
                 },
                 {
                     label: 'Назад',
-                    action: settingsAction.name
+                    action: SETTINGS_ACTION
                 }
             ]
         }

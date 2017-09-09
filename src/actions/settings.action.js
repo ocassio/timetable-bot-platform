@@ -1,10 +1,9 @@
+const { SETTINGS_ACTION, SELECT_CRITERION_ACTION, MAIN_MENU_ACTION } = require('../consts/actions.consts')
 const DBService = require('../services/db.service')
-const mainMenuAction = require('./main-menu.action')
-const selectCriterionAction = require('./select-criterion.action')
 
 const settingsAction = {
 
-    name: 'settings',
+    name: SETTINGS_ACTION,
 
     async execute({ userId }) {
         // const preferences = await DBService.getPreferences(userId)
@@ -12,15 +11,16 @@ const settingsAction = {
             title: 'Настройки',
             messages: [
                 // preferences
+                'Настройки'
             ],
             buttons: [
                 {
                     label: 'Выбрать критерий',
-                    action: selectCriterionAction.name
+                    action: SELECT_CRITERION_ACTION
                 },
                 {
                     label: 'Назад',
-                    action: mainMenuAction.name
+                    action: MAIN_MENU_ACTION
                 }            
             ]
         }

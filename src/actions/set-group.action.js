@@ -1,4 +1,4 @@
-const mainMenuAction = require('./main-menu.action')
+const { SET_GROUP_ACTION, MAIN_MENU_ACTION } = require('../consts/actions.consts')
 
 const setGroupAction = {
 
@@ -19,7 +19,7 @@ const setGroupAction = {
                 `Группа ${value} успешно выбрана`
             ],
             next: {
-                action: mainMenuAction.name
+                action: MAIN_MENU_ACTION
             }
         }
     }

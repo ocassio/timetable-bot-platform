@@ -1,4 +1,4 @@
-const settingsAction = require('./settings.action')
+const { MAIN_MENU_ACTION, SETTINGS_ACTION } = require('../consts/actions.consts')
 
 const mainMenuAction = {
 
@@ -6,7 +6,7 @@ const mainMenuAction = {
 
     execute() {
         return {
-            title: 'Главное меню',
+            title: MAIN_MENU_ACTION,
             messages: [
                 'Выберите желаемое действие'
             ],
@@ -21,7 +21,7 @@ const mainMenuAction = {
                 },
                 {
                     label: 'Настройки',
-                    action: settingsAction.name
+                    action: SETTINGS_ACTION
                 }
             ]
         }
