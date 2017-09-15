@@ -1,11 +1,8 @@
 const sendMessage = require('./send-message.emitter')
+const errorAction = require('../../actions/error.action')
 
 function sendErrorMessage(socket) {
-    sendMessage({
-        messages: [
-            'Упс... Кажется что-то пошло не так. :('
-        ]
-    })
+    sendMessage(errorAction, errorAction.execute())
 }
 
 module.exports = sendErrorMessage

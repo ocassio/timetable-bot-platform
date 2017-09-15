@@ -9,7 +9,7 @@ const actionHandler = {
 
     name: ACTION_HANDLER,
 
-    handle(socket, params) {
+    async handle(socket, params) {
         console.log(`Action: ${params.action}`)
         console.log(`Params: ${JSON.stringify(params)}`)
         try {
@@ -17,8 +17,14 @@ const actionHandler = {
             if (result instanceof Promise) {
                 result = await result
             }
+            result.recipients = [params.userId]
             console.log(`Result: ${JSON.stringify(result)}`)
             sendMessage(result)
+
+            if (result.next) {
+                result.next.userId = params.userId
+                this.handle(socket, result.next)
+            }
         } catch(e) {
             console.error(e)
         }
