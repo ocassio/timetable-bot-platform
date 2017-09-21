@@ -2,11 +2,11 @@ const { MAIN_MENU_ACTION, SETTINGS_ACTION } = require('../consts/actions.consts'
 
 const mainMenuAction = {
 
-    name: 'mainMenu',
+    name: MAIN_MENU_ACTION,
 
     execute() {
         return {
-            title: MAIN_MENU_ACTION,
+            title: 'Главное меню',
             messages: [
                 'Выберите желаемое действие'
             ],

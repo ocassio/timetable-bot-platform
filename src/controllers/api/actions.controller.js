@@ -26,7 +26,7 @@ async function dispatch(request, response, action) {
         }
         console.log(`Result: ${JSON.stringify(result)}`)
         response.send(result)
-        SessionService.setParam(params.userId, LAST_ACTION, action.name);
+        SessionService.setParam(params.userId, LAST_ACTION, action.name)
     } catch (e) {
         console.error(
             'Error executing:\n',

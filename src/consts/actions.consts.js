@@ -6,5 +6,6 @@ module.exports = {
     SET_TEACHER_ACTION: 'setTeacher',
     SET_ROOM_ACTION: 'setRoom',
     SETTINGS_ACTION: 'settings',
-    TIMETABLE_ACTION: 'timetable'
+    TIMETABLE_ACTION: 'timetable',
+    ERROR_ACTION: 'error'
 }
