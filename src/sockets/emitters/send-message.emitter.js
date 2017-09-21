@@ -1,5 +1,5 @@
 function sendMessage(socket, message) {
-    socket.emit('message', message)
+    socket.emit('sendMessage', message)
 }
 
 module.exports = sendMessage

@@ -4,5 +4,6 @@ module.exports = [
     require('./timetable.action'),
     require('./response.action'),
     require('./select-criterion.action'),
-    require('./set-group.action')
+    require('./set-group.action'),
+    require('./error.action')
 ]

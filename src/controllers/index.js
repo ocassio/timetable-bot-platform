@@ -4,6 +4,7 @@ const APIControllers = require('./api')
 
 const router = Router()
 
-router.use('/api', APIControllers)
+// Uncomment to enable REST API
+// router.use('/api', APIControllers)
 
 module.exports = router

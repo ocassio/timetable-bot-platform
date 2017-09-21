@@ -15,3 +15,5 @@ const errorAction = {
         }
     }
 }
+
+module.exports = errorAction

@@ -6,11 +6,9 @@ const settingsAction = {
     name: SETTINGS_ACTION,
 
     async execute({ userId }) {
-        // const preferences = await DBService.getPreferences(userId)
         return {
             title: 'Настройки',
             messages: [
-                // preferences
                 'Настройки'
             ],
             buttons: [
