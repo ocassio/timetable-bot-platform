@@ -1,5 +1,5 @@
-import APIService from './api.service'
-import DBService from './db.service'
+const APIService = require('./api.service')
+const DBService = require('./db.service')
 
 /**
  * @typedef Criterion
@@ -24,7 +24,7 @@ class PreferencesService {
      * @param {object} actions Set of callbacks
      * @param {function} actions.success Callback, that is called when operation is completed successfully
      * @param {function} actions.notFound Callback, that is called when no criterion with such name has been found
-     * @param {function} actions.ambigious Callback, that is called when multiple criteria have been found
+     * @param {function} actions.ambiguous Callback, that is called when multiple criteria have been found
      * @memberOf PreferencesService
      */
     static async setCriterion(userId, criteriaType, criterionName, actions) {
@@ -49,7 +49,7 @@ class PreferencesService {
 
             if (!criterion) {
                 const criteriaNames = filteredCriteria.map(c => c.name);
-                actions.ambigous(criteriaNames);
+                actions.ambiguous(criteriaNames);
                 return;
             }
             
