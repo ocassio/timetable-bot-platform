@@ -7,20 +7,22 @@ const settingsAction = {
 
     async execute({ userId }) {
         return {
-            title: 'Настройки',
-            messages: [
-                'Настройки'
-            ],
-            buttons: [
-                {
-                    label: 'Выбрать критерий',
-                    action: SELECT_CRITERION_ACTION
-                },
-                {
-                    label: 'Назад',
-                    action: MAIN_MENU_ACTION
-                }            
-            ]
+            response: {
+                title: 'Настройки',
+                messages: [
+                    'Настройки'
+                ],
+                buttons: [
+                    {
+                        label: 'Выбрать критерий',
+                        action: SELECT_CRITERION_ACTION
+                    },
+                    {
+                        label: 'Назад',
+                        action: MAIN_MENU_ACTION
+                    }            
+                ]
+            }
         }
     }
 }

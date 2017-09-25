@@ -8,15 +8,17 @@ const setTeacherAction = {
 
     execute() {
         return {
-            messages: [
-                'Введите преподавателя'
-            ],
-            buttons: [
-                {
-                    label: 'Отмена',
-                    action: SETTINGS_ACTION
-                }
-            ]
+            response: {
+                messages: [
+                    'Введите преподавателя'
+                ],
+                buttons: [
+                    {
+                        label: 'Отмена',
+                        action: SETTINGS_ACTION
+                    }
+                ]
+            }
         }
     },
 
@@ -25,13 +27,13 @@ const setTeacherAction = {
             PreferencesService.setCriterion(userId, CRITERIA_TYPES.TEACHER, value, {
                 success: teacher => {
                     resolve({
-                        messages: [`Преподаватель ${teacher} успешно выбран`],
+                        response: { messages: [`Преподаватель ${teacher} успешно выбран`] },
                         next: { action: MAIN_MENU_ACTION }
                     })
                 },
                 notFound: () => {
                     resolve({
-                        messages: [`Преподаватель ${value} не найден`],
+                        response: { messages: [`Преподаватель ${value} не найден`] },
                         next: { action: SET_TEACHER_ACTION }
                     })
                 },
@@ -39,7 +41,7 @@ const setTeacherAction = {
                     let message = 'Найдено несколько подходящих преподавателей:\n';
                     groups.forEach(g => message += g + '\n');
                     resolve({
-                        messages: [message],
+                        response: { messages: [message] },
                         next: { action: SET_TEACHER_ACTION }
                     })
                 }

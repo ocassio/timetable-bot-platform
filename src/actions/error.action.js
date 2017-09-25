@@ -6,9 +6,11 @@ const errorAction = {
 
     execute() {
         return {
-            messages: [
-                'Упс... Кажется что-то пошло не так. :('
-            ],
+            response: {
+                messages: [
+                    'Упс... Кажется что-то пошло не так. :('
+                ],
+            },
             next: {
                 action: MAIN_MENU_ACTION
             }

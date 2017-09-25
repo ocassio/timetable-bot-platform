@@ -23,9 +23,13 @@ const actionHandler = {
             if (result instanceof Promise) {
                 result = await result
             }
-            result.recipients = [userId]
             console.log(`Result: ${JSON.stringify(result)}`)
-            sendMessage(socket, result)
+
+            if (result.response) {
+                result.response.recipients = [userId]
+                sendMessage(socket, result.response)
+            }
+
             SessionService.setParam(userId, LAST_ACTION, action)
 
             if (result.next) {
@@ -36,6 +40,7 @@ const actionHandler = {
             console.error(e)
             sendErrorMessage(socket, userId)
         }
+        console.log('--------------------')
     }
 }
 

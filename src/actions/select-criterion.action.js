@@ -12,27 +12,29 @@ const selectCriterionAction = {
 
     execute() {
         return {
-            messages: [
-                'Выберите тип критерия'
-            ],
-            buttons: [
-                {
-                    label: 'Группа',
-                    action: SET_GROUP_ACTION
-                },
-                {
-                    label: 'Преподаватель',
-                    action: SET_TEACHER_ACTION
-                },
-                {
-                    label: 'Аудитория',
-                    action: SET_ROOM_ACTION
-                },
-                {
-                    label: 'Назад',
-                    action: SETTINGS_ACTION
-                }
-            ]
+            response: {
+                messages: [
+                    'Выберите тип критерия'
+                ],
+                buttons: [
+                    {
+                        label: 'Группа',
+                        action: SET_GROUP_ACTION
+                    },
+                    {
+                        label: 'Преподаватель',
+                        action: SET_TEACHER_ACTION
+                    },
+                    {
+                        label: 'Аудитория',
+                        action: SET_ROOM_ACTION
+                    },
+                    {
+                        label: 'Назад',
+                        action: SETTINGS_ACTION
+                    }
+                ]
+            }
         }
     }
 }

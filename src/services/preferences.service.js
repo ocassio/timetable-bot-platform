@@ -44,7 +44,7 @@ class PreferencesService {
         if (filteredCriteria.length > 1) {
 
             criterion = filteredCriteria.find(
-                criterion => criterion.name.toLowerCase() == criterionName.toLowerCase
+                criterion => criterion.name.toLowerCase() == criterionName.toLowerCase()
             );
 
             if (!criterion) {

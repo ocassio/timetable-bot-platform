@@ -8,15 +8,17 @@ const setRoomAction = {
 
     execute() {
         return {
-            messages: [
-                'Введите аудиторию'
-            ],
-            buttons: [
-                {
-                    label: 'Отмена',
-                    action: SETTINGS_ACTION
-                }
-            ]
+            response: {
+                messages: [
+                    'Введите аудиторию'
+                ],
+                buttons: [
+                    {
+                        label: 'Отмена',
+                        action: SETTINGS_ACTION
+                    }
+                ]
+            }
         }
     },
 
@@ -25,13 +27,13 @@ const setRoomAction = {
             PreferencesService.setCriterion(userId, CRITERIA_TYPES.ROOM, value, {
                 success: room => {
                     resolve({
-                        messages: [`Аудитория ${room} успешно выбрана`],
+                        response: { messages: [`Аудитория ${room} успешно выбрана`] },
                         next: { action: MAIN_MENU_ACTION }
                     })
                 },
                 notFound: () => {
                     resolve({
-                        messages: [`Аудитория ${value} не найдена`],
+                        response: { messages: [`Аудитория ${value} не найдена`] },
                         next: { action: SET_ROOM_ACTION }
                     })
                 },
@@ -39,7 +41,7 @@ const setRoomAction = {
                     let message = 'Найдено несколько подходящих аудиторий:\n';
                     groups.forEach(g => message += g + '\n');
                     resolve({
-                        messages: [message],
+                        response: { messages: [message] },
                         next: { action: SET_ROOM_ACTION }
                     })
                 }
