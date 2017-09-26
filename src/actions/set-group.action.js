@@ -8,15 +8,17 @@ const setGroupAction = {
 
     execute() {
         return {
-            messages: [
-                'Введите группу'
-            ],
-            buttons: [
-                {
-                    label: 'Отмена',
-                    action: SETTINGS_ACTION
-                }
-            ]
+            response: {
+                messages: [
+                    'Введите группу'
+                ],
+                buttons: [
+                    {
+                        label: 'Отмена',
+                        action: SETTINGS_ACTION
+                    }
+                ]
+            }
         }
     },
 
@@ -25,13 +27,13 @@ const setGroupAction = {
             PreferencesService.setCriterion(userId, CRITERIA_TYPES.GROUP, value, {
                 success: group => {
                     resolve({
-                        messages: [`Группа ${group} успешно выбрана`],
+                        response: { messages: [`Группа ${group} успешно выбрана`] },
                         next: { action: MAIN_MENU_ACTION }
                     })
                 },
                 notFound: () => {
                     resolve({
-                        messages: [`Группа ${value} не найдена`],
+                        response: { messages: [`Группа ${value} не найдена`] },
                         next: { action: SET_GROUP_ACTION }
                     })
                 },
@@ -39,7 +41,7 @@ const setGroupAction = {
                     let message = 'Найдено несколько подходящих групп:\n';
                     groups.forEach(g => message += g + '\n');
                     resolve({
-                        messages: [message],
+                        response: { messages: [message] },
                         next: { action: SET_GROUP_ACTION }
                     })
                 }

@@ -1,4 +1,8 @@
-const { MAIN_MENU_ACTION, SETTINGS_ACTION } = require('../consts/actions.consts')
+const { 
+    MAIN_MENU_ACTION,
+    SELECT_DATE_RANGE_ACTION,
+    SETTINGS_ACTION
+} = require('../consts/actions.consts')
 
 const mainMenuAction = {
 
@@ -6,24 +10,25 @@ const mainMenuAction = {
 
     execute() {
         return {
-            title: 'Главное меню',
-            messages: [
-                'Выберите желаемое действие'
-            ],
-            buttons: [
-                {
-                    label: 'Расписание на сегодня',
-                    action: 'timetable/today'
-                },
-                {
-                    label: 'Расписание на завтра',
-                    action: 'timetable/tomorrow'
-                },
-                {
-                    label: 'Настройки',
-                    action: SETTINGS_ACTION
-                }
-            ]
+            response: {
+                messages: [
+                    'Главное меню'
+                ],
+                buttons: [
+                    {
+                        label: 'Расписание',
+                        action: SELECT_DATE_RANGE_ACTION
+                    },
+                    {
+                        label: 'Расписание по критерию',
+                        action: 'timetableCustom'
+                    },
+                    {
+                        label: 'Настройки',
+                        action: SETTINGS_ACTION
+                    }
+                ]
+            }
         }
     }
 }

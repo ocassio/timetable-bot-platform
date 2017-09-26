@@ -3,8 +3,8 @@ const errorAction = require('../../actions/error.action')
 
 function sendErrorMessage(socket, userId) {
     const message = errorAction.execute()
-    message.recipients = [userId]
-    sendMessage(socket, message)
+    message.response.recipients = [userId]
+    sendMessage(socket, message.response)
     if (message.next) {
         const actionHandler = require('../handlers/action.handler')
         message.next.userId = userId
