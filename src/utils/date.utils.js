@@ -253,14 +253,12 @@ class DateUtils {
         let dateRange
         const dates = this.getDates(string)
 
-        if (dates.length == 0) {
-            dateRange = this.getTodayRange()
-        } else if (dates.length == 1) {
+        if (dates.length == 1) {
             dateRange = {
                 from: dates[0],
                 to: dates[0]
             }
-        } else {
+        } else if (dates.length > 1) {
             if (this.isBefore(dates[0], dates[1])) {
                 dateRange = {
                     from: dates[0],

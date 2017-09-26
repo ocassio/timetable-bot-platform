@@ -12,7 +12,7 @@ const timetableAction = {
     async execute({ userId }) {
         const lastAction = SessionService.getParam(userId, LAST_ACTION)
         const action = require('../actions').find(action => action.name === lastAction)
-        const dateRange = action.getDateRange()
+        const dateRange = action.getDateRange(userId)
         const criterion = await PreferencesService.getCriterion(userId)
         const timetable = await APIService.getTimetable(criterion.type, criterion.id, dateRange.from, dateRange.to)
         const messages = timetable.length > 0 ?

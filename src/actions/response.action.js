@@ -5,6 +5,7 @@ const SessionService = require('../services/session.service')
 const responseAction = {
 
     name: RESPONSE_ACTION,
+    hidden: true,
 
     execute(params) {
         const actionName = SessionService.getParam(params.userId, LAST_ACTION)

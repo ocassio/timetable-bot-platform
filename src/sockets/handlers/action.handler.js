@@ -19,7 +19,8 @@ const actionHandler = {
         console.log(`Params: ${JSON.stringify(params)}`)
 
         try {
-            let result = actionsMap[action].execute(params)
+            const actionObject = actionsMap[action]
+            let result = actionObject.execute(params)
             if (result instanceof Promise) {
                 result = await result
             }
@@ -30,7 +31,9 @@ const actionHandler = {
                 sendMessage(socket, result.response)
             }
 
-            SessionService.setParam(userId, LAST_ACTION, action)
+            if (!actionObject.hidden) {
+                SessionService.setParam(userId, LAST_ACTION, action)
+            }
 
             if (result.next) {
                 result.next.userId = userId
