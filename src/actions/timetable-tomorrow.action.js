@@ -8,13 +8,10 @@ const timetableTomorrowAction = {
     execute() {
         return {
             next: {
-                action: TIMETABLE_ACTION
+                action: TIMETABLE_ACTION,
+                dateRange: DateUtils.getTomorrowRange()
             }
         }
-    },
-    
-    getDateRange() {
-        return DateUtils.getTomorrowRange();
     }
 
 }

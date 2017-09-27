@@ -1,6 +1,4 @@
 const { TIMETABLE_ACTION, MAIN_MENU_ACTION } = require('../consts/actions.consts')
-const { LAST_ACTION } = require('../consts/session.consts')
-const SessionService = require('../services/session.service')
 const PreferencesService = require('../services/preferences.service')
 const APIService = require('../services/api.service')
 const DateUtils = require('../utils/date.utils')
@@ -9,10 +7,7 @@ const timetableAction = {
     
     name: TIMETABLE_ACTION,
 
-    async execute({ userId }) {
-        const lastAction = SessionService.getParam(userId, LAST_ACTION)
-        const action = require('../actions').find(action => action.name === lastAction)
-        const dateRange = action.getDateRange(userId)
+    async execute({ userId, dateRange }) {
         const criterion = await PreferencesService.getCriterion(userId)
         const timetable = await APIService.getTimetable(criterion.type, criterion.id, dateRange.from, dateRange.to)
         const messages = timetable.length > 0 ?

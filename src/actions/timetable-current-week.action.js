@@ -8,13 +8,10 @@ const timetableCurrentWeekAction = {
     execute() {
         return {
             next: {
-                action: TIMETABLE_ACTION
+                action: TIMETABLE_ACTION,
+                dateRange: DateUtils.getCurrentWeek()
             }
         }
-    },
-
-    getDateRange() {
-        return DateUtils.getCurrentWeek();
     }
 
 }

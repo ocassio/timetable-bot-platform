@@ -8,13 +8,10 @@ const timetableSevenDaysAction = {
     execute() {
         return {
             next: {
-                action: TIMETABLE_ACTION
+                action: TIMETABLE_ACTION,
+                dateRange: DateUtils.getSevenDays()
             }
         }
-    },
-    
-    getDateRange() {
-        return DateUtils.getSevenDays();
     }
 
 }
