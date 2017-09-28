@@ -32,7 +32,9 @@ const actionHandler = {
             }
 
             if (!actionObject.hidden) {
-                SessionService.setParam(userId, LAST_ACTION, action)
+                const actionInfo = result.sessionData || {}
+                actionInfo.action = action
+                SessionService.setParam(userId, LAST_ACTION, actionInfo)
             }
 
             if (result.next) {

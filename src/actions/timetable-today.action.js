@@ -5,11 +5,12 @@ const timetableTodayAction = {
     
     name: TIMETABLE_TODAY_ACTION,
 
-    execute() {
+    execute({ criterion }) {
         return {
             next: {
                 action: TIMETABLE_ACTION,
-                dateRange: DateUtils.getTodayRange()
+                dateRange: DateUtils.getTodayRange(),
+                criterion
             }
         }
     }

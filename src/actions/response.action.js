@@ -8,10 +8,11 @@ const responseAction = {
     hidden: true,
 
     execute(params) {
-        const actionName = SessionService.getParam(params.userId, LAST_ACTION)
-        const action = require('./index').find(action => action.name === actionName)
+        const lastAction = SessionService.getParam(params.userId, LAST_ACTION)
+        const action = require('./index').find(action => action.name === lastAction.action)
+        const mergedParams = Object.assign({}, params, lastAction)
         if (action && action.handleResponse) {
-            return action.handleResponse(params)
+            return action.handleResponse(mergedParams)
         }
     }
 }

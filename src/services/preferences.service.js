@@ -8,6 +8,13 @@ const DBService = require('./db.service')
  */
 
 /**
+ * @typedef CriterionSelectionCallbacks
+ * @property {function} success Callback, that is called when operation is completed successfully
+ * @property {function} notFound Callback, that is called when no criterion with such name has been found
+ * @property {function} ambiguous Callback, that is called when multiple criteria have been found
+ */
+
+/**
  * Service for preferences related business logic 
  * 
  * @class PreferencesService
@@ -21,57 +28,25 @@ class PreferencesService {
      * @param {string} userId User ID
      * @param {number} criteriaType Criteria type ID
      * @param {string} criterionName Criterion name
-     * @param {object} actions Set of callbacks
-     * @param {function} actions.success Callback, that is called when operation is completed successfully
-     * @param {function} actions.notFound Callback, that is called when no criterion with such name has been found
-     * @param {function} actions.ambiguous Callback, that is called when multiple criteria have been found
+     * @param {CriterionSelectionCallbacks} actions Set of callbacks
      * @memberOf PreferencesService
      */
-    static async setCriterion(userId, criteriaType, criterionName, actions) {
-        
-        const criteria = await APIService.getCriteria(criteriaType);
-        const filteredCriteria = criteria.filter(
-            criterion => criterion.name.toLowerCase().includes(criterionName.toLowerCase())
-        );
+    static setCriterion(userId, criteriaType, criterionName, actions) {
+        processCriterionSelection(userId, criteriaType, criterionName, actions, saveCriterionToPreferences)
+    }
 
-        if (filteredCriteria.length == 0) {
-            actions.notFound();
-            return;
-        }
-        
-        let criterion;        
-
-        if (filteredCriteria.length > 1) {
-
-            criterion = filteredCriteria.find(
-                criterion => criterion.name.toLowerCase() == criterionName.toLowerCase()
-            );
-
-            if (!criterion) {
-                const criteriaNames = filteredCriteria.map(c => c.name);
-                actions.ambiguous(criteriaNames);
-                return;
-            }
-            
-        } else {
-            criterion = filteredCriteria[0];
-        }
-
-        let preferences = await DBService.getPreferences(userId);
-
-        if (preferences) {
-            preferences.criteriaType = criteriaType;
-            preferences.criterionId = criterion.id;
-            await DBService.updatePreferences(userId, preferences);
-        } else {
-            preferences = {
-                criteriaType: criteriaType,
-                criterionId: criterion.id
-            };
-            await DBService.createPreferences(userId, preferences);
-        }
-
-        actions.success(criterion.name);
+    /**
+     * Checks if specified criterion type and ID are valid
+     * 
+     * @static
+     * @param {string} userId User ID
+     * @param {number} criteriaType Criteria type ID
+     * @param {string} criterionName Criterion name
+     * @param {CriterionSelectionCallbacks} actions Set of callbacks
+     * @memberOf PreferencesService
+     */
+    static checkCriterion(userId, criteriaType, criterionName, actions) {
+        processCriterionSelection(userId, criteriaType, criterionName, actions)
     }
 
     /**
@@ -92,6 +67,78 @@ class PreferencesService {
         }
     }
 
+}
+
+/**
+ * Processes criterion selection for the user with specified ID
+ * 
+ * @static
+ * @param {string} userId User ID
+ * @param {number} criteriaType Criteria type ID
+ * @param {string} criterionName Criterion name
+ * @param {CriterionSelectionCallbacks} actions Set of callbacks
+ * @param {function} [saveAction] Save operation
+ * @memberOf PreferencesService
+ */
+async function processCriterionSelection(userId, criteriaType, criterionName, actions, saveAction) {
+
+    const criteria = await APIService.getCriteria(criteriaType)
+    const filteredCriteria = criteria.filter(
+        criterion => criterion.name.toLowerCase().includes(criterionName.toLowerCase())
+    )
+
+    if (filteredCriteria.length == 0) {
+        actions.notFound()
+        return
+    }
+    
+    let criterion        
+
+    if (filteredCriteria.length > 1) {
+
+        criterion = filteredCriteria.find(
+            criterion => criterion.name.toLowerCase() == criterionName.toLowerCase()
+        )
+
+        if (!criterion) {
+            const criteriaNames = filteredCriteria.map(c => c.name)
+            actions.ambiguous(criteriaNames)
+            return
+        }
+        
+    } else {
+        criterion = filteredCriteria[0]
+    }
+
+    if (saveAction) {
+        await saveAction(userId, criteriaType, criterionName)
+    }
+    
+    actions.success(criterion)
+}
+
+/**
+ * Saves selected criterion as preference for the user
+ * 
+ * @static
+ * @param {string} userId User ID
+ * @param {number} criteriaType Criteria type ID
+ * @param {string} criterionName Criterion name 
+ */
+async function saveCriterionToPreferences(userId, criteriaType, criterionName) {
+    let preferences = await DBService.getPreferences(userId)
+    
+    if (preferences) {
+        preferences.criteriaType = criteriaType
+        preferences.criterionId = criterion.id
+        await DBService.updatePreferences(userId, preferences)
+    } else {
+        preferences = {
+            criteriaType: criteriaType,
+            criterionId: criterion.id
+        }
+        await DBService.createPreferences(userId, preferences)
+    }
 }
 
 module.exports = PreferencesService

@@ -5,11 +5,12 @@ const timetableSevenDaysAction = {
     
     name: TIMETABLE_SEVEN_DAYS_ACTION,
 
-    execute() {
+    execute({ criterion }) {
         return {
             next: {
                 action: TIMETABLE_ACTION,
-                dateRange: DateUtils.getSevenDays()
+                dateRange: DateUtils.getSevenDays(),
+                criterion
             }
         }
     }

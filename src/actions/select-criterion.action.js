@@ -3,14 +3,15 @@ const {
     SET_GROUP_ACTION,
     SET_ROOM_ACTION,
     SET_TEACHER_ACTION,
-    SETTINGS_ACTION
+    SETTINGS_ACTION,
+    MAIN_MENU_ACTION
 } = require('../consts/actions.consts')
 
 const selectCriterionAction = {
 
     name: SELECT_CRITERION_ACTION,
 
-    execute() {
+    execute({ customTimetable }) {
         return {
             response: {
                 messages: [
@@ -19,19 +20,22 @@ const selectCriterionAction = {
                 buttons: [
                     {
                         label: 'Группа',
-                        action: SET_GROUP_ACTION
+                        action: SET_GROUP_ACTION,
+                        params: { customTimetable }
                     },
                     {
                         label: 'Преподаватель',
-                        action: SET_TEACHER_ACTION
+                        action: SET_TEACHER_ACTION,
+                        params: { customTimetable }
                     },
                     {
                         label: 'Аудитория',
-                        action: SET_ROOM_ACTION
+                        action: SET_ROOM_ACTION,
+                        params: { customTimetable }
                     },
                     {
                         label: 'Назад',
-                        action: SETTINGS_ACTION
+                        action: customTimetable ? MAIN_MENU_ACTION : SETTINGS_ACTION
                     }
                 ]
             }

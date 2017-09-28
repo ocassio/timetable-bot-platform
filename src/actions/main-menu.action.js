@@ -1,6 +1,7 @@
 const { 
     MAIN_MENU_ACTION,
     SELECT_DATE_RANGE_ACTION,
+    SELECT_CRITERION_ACTION,
     SETTINGS_ACTION
 } = require('../consts/actions.consts')
 
@@ -21,7 +22,10 @@ const mainMenuAction = {
                     },
                     {
                         label: 'Расписание по критерию',
-                        action: 'timetableCustom'
+                        action: SELECT_CRITERION_ACTION,
+                        params: {
+                            customTimetable: true
+                        }
                     },
                     {
                         label: 'Настройки',

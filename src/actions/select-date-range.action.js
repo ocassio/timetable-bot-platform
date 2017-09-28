@@ -13,7 +13,7 @@ const selectDateRangeAction = {
 
     name: SELECT_DATE_RANGE_ACTION,
 
-    execute() {
+    execute({ criterion }) {
         return {
             response: {
                 messages: [
@@ -22,27 +22,33 @@ const selectDateRangeAction = {
                 buttons: [
                     {
                         label: 'Сегодня',
-                        action: TIMETABLE_TODAY_ACTION
+                        action: TIMETABLE_TODAY_ACTION,
+                        params: { criterion }
                     },
                     {
                         label: 'Завтра',
-                        action: TIMETABLE_TOMORROW_ACTION
+                        action: TIMETABLE_TOMORROW_ACTION,
+                        params: { criterion }
                     },
                     {
                         label: '7 дней',
-                        action: TIMETABLE_SEVEN_DAYS_ACTION
+                        action: TIMETABLE_SEVEN_DAYS_ACTION,
+                        params: { criterion }
                     },
                     {
                         label: 'Текущая неделя',
-                        action: TIMETABLE_CURRENT_WEEK_ACTION
+                        action: TIMETABLE_CURRENT_WEEK_ACTION,
+                        params: { criterion }
                     },
                     {
                         label: 'Следующая неделя',
-                        action: TIMETABLE_NEXT_WEEK_ACTION
+                        action: TIMETABLE_NEXT_WEEK_ACTION,
+                        params: { criterion }
                     },
                     {
                         label: 'Свой вариант',
-                        action: TIMETABLE_CUSTOM_ACTION
+                        action: TIMETABLE_CUSTOM_ACTION,
+                        params: { criterion }
                     },
                     {
                         label: 'Назад',

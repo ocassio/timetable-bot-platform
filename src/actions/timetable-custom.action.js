@@ -5,7 +5,7 @@ const timetableCustomAction = {
     
     name: TIMETABLE_CUSTOM_ACTION,
 
-    execute() {
+    execute({ criterion }) {
         return {
             response: {
                 messages: ['Введите временной диапазон'],
@@ -15,17 +15,19 @@ const timetableCustomAction = {
                         action: MAIN_MENU_ACTION
                     }
                 ]
-            }
+            },
+            sessionData: { criterion }
         }
     },
 
-    handleResponse({ userId, value }) {
+    handleResponse({ userId, value, criterion }) {
         const dateRange = DateUtils.getDateRange(value)
         if (dateRange) {
             return {
                 next: {
                      action: TIMETABLE_ACTION,
-                     dateRange
+                     dateRange,
+                     criterion
                 }
             }
         }
@@ -34,7 +36,7 @@ const timetableCustomAction = {
             response: {
                 messages: ['Пожалуйста, укажите дату в формате дд.мм.гггг']
             },
-            next: { action: TIMETABLE_CUSTOM_ACTION }
+            next: { action: TIMETABLE_CUSTOM_ACTION, criterion }
         }
     }
 

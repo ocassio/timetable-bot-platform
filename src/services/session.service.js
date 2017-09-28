@@ -32,7 +32,7 @@ class SessionService {
      * @memberof SessionService
      */
     static getParam(userId, name) {
-        return this.getParams(userId)[name];
+        return this.getParams(userId)[name]
     }
 
     /**

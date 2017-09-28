@@ -5,11 +5,12 @@ const timetableCurrentWeekAction = {
     
     name: TIMETABLE_CURRENT_WEEK_ACTION,
 
-    execute() {
+    execute({ criterion }) {
         return {
             next: {
                 action: TIMETABLE_ACTION,
-                dateRange: DateUtils.getCurrentWeek()
+                dateRange: DateUtils.getCurrentWeek(),
+                criterion
             }
         }
     }
