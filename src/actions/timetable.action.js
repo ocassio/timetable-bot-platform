@@ -1,4 +1,4 @@
-const { TIMETABLE_ACTION, MAIN_MENU_ACTION } = require('../consts/actions.consts')
+const { TIMETABLE_ACTION, SELECT_CRITERION_ACTION, MAIN_MENU_ACTION } = require('../consts/actions.consts')
 const PreferencesService = require('../services/preferences.service')
 const APIService = require('../services/api.service')
 const DateUtils = require('../utils/date.utils')
@@ -9,6 +9,15 @@ const timetableAction = {
 
     async execute({ userId, dateRange, criterion: preselectedCriterion }) {
         const criterion = preselectedCriterion || await PreferencesService.getCriterion(userId)
+        if (!criterion) {
+            return {
+                response: {
+                    messages: ['Кажется, Вы еще не выбрали группу, преподавателя или аудиторию...']
+                },
+                next: { action: SELECT_CRITERION_ACTION }
+            }
+        }
+
         const timetable = await APIService.getTimetable(criterion.type, criterion.id, dateRange.from, dateRange.to)
         const messages = timetable.length > 0 ?
             timetable.map(day => this.getDayMessage(day)) :

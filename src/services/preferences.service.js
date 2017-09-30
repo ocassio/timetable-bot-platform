@@ -111,7 +111,7 @@ async function processCriterionSelection(userId, criteriaType, criterionName, ac
     }
 
     if (saveAction) {
-        await saveAction(userId, criteriaType, criterionName)
+        await saveAction(userId, criteriaType, criterion)
     }
     
     actions.success(criterion)
@@ -123,9 +123,9 @@ async function processCriterionSelection(userId, criteriaType, criterionName, ac
  * @static
  * @param {string} userId User ID
  * @param {number} criteriaType Criteria type ID
- * @param {string} criterionName Criterion name 
+ * @param {Criterion} criterion Criterion
  */
-async function saveCriterionToPreferences(userId, criteriaType, criterionName) {
+async function saveCriterionToPreferences(userId, criteriaType, criterion) {
     let preferences = await DBService.getPreferences(userId)
     
     if (preferences) {

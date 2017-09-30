@@ -1,4 +1,5 @@
 module.exports = {
+    START_ACTION: 'start',
     MAIN_MENU_ACTION: 'mainMenu',
     RESPONSE_ACTION: 'response',
     SELECT_CRITERION_ACTION: 'selectCriterion',

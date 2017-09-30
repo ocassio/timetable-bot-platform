@@ -1,4 +1,5 @@
 module.exports = [
+    require('./start.action'),
     require('./main-menu.action'),
     require('./settings.action'),
     require('./select-date-range.action'),
