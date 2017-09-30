@@ -1,8 +1,9 @@
 const knex = require('knex')
+const { database, connectionUrl, preferencesTable } = require('../configs/db.config')
 
 const db = knex({
-    client: 'pg',
-    connection: process.env.TIMETABLE_BOT_DB
+    client: database,
+    connection: connectionUrl
 })
 
 /**
@@ -31,7 +32,7 @@ class DBService {
      * @memberof DBService
      */
     static async getPreferences(userId) {
-        return await db('preferences').where('userId', userId).first()
+        return await db(preferencesTable).where('userId', userId).first()
     }
 
     /**
@@ -44,7 +45,7 @@ class DBService {
      * @memberof DBService
      */
     static async createPreferences(userId, preferences) {
-        return await db('preferences').insert({
+        return await db(preferencesTable).insert({
             userId: userId,
             criteriaType: preferences.criteriaType,
             criterionId: preferences.criterionId,
@@ -63,7 +64,20 @@ class DBService {
      * @memberof DBService
      */
     static async updatePreferences(userId, preferences) {
-        return await db('preferences').where('userId', userId).update(preferences)
+        return await db(preferencesTable).where('userId', userId).update(preferences)
+    }
+
+    /**
+     * Returns all user IDs except specified in excludes param
+     * 
+     * @static
+     * @param {Array<string>} [excludes=[]] List of user IDs to exclude
+     * @returns {Promise<Array<string>>} List of user IDs
+     * @memberof DBService
+     */
+    static async getAllUsers(excludes = []) {
+        const preferences = await db(preferencesTable).whereNotIn('userId', excludes).select()
+        return preferences.map(p => p.userId)
     }
 
 }

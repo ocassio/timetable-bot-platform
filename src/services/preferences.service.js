@@ -22,6 +22,17 @@ const DBService = require('./db.service')
 class PreferencesService {
 
     /**
+     * Creates empty preferences for specified user
+     * 
+     * @static
+     * @param {string} userId User ID
+     * @memberof PreferencesService
+     */
+    static createPreferences(userId) {
+        DBService.createPreferences(userId, {})
+    }
+
+    /**
      * Sets specified criterion for the user with specified ID
      * 
      * @static

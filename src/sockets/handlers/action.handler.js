@@ -27,7 +27,7 @@ const actionHandler = {
             console.log(`Result: ${JSON.stringify(result)}`)
 
             if (result.response) {
-                result.response.recipients = [userId]
+                result.response.recipients = result.response.recipients || [userId]
                 sendMessage(socket, result.response)
             }
 

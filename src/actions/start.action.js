@@ -11,6 +11,8 @@ const startAction = {
             return {
                 next: { action: MAIN_MENU_ACTION }
             }
+        } else {
+            
         }
 
         return {

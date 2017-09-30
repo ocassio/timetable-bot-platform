@@ -1,10 +1,7 @@
 const { Router } = require('express')
 
-const APIControllers = require('./api')
-
 const router = Router()
 
-// Uncomment to enable REST API
-// router.use('/api', APIControllers)
+// Add new controllers here
 
 module.exports = router

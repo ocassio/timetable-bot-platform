@@ -15,5 +15,6 @@ module.exports = {
     TIMETABLE_CURRENT_WEEK_ACTION: 'timetableCurrentWeek',
     TIMETABLE_NEXT_WEEK_ACTION: 'timetableNextWeek',
     TIMETABLE_CUSTOM_ACTION: 'timetableCustom',
-    ERROR_ACTION: 'error'
+    ERROR_ACTION: 'error',
+    BROADCAST_ACTION: 'broadcast'
 }
