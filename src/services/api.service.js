@@ -1,7 +1,8 @@
 const request = require('request')
+const { apiUrl } = require('../configs/platform.config')
 
-const TIMETABLE_URL = process.env.TIMETABLE_API_SERVER + '/timetable'
-const CRITERIA_URL = process.env.TIMETABLE_API_SERVER + '/criteria'
+const TIMETABLE_URL = `${apiUrl}/timetable`
+const CRITERIA_URL = `${apiUrl}/criteria`
 
 class APIService {
 

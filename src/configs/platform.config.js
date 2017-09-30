@@ -3,5 +3,6 @@ const admins = process.env.TIMETABLE_BOT_PLATFORM_ADMINS ?
 
 module.exports = {
     port: process.env.PORT || 3000,
-    admins
+    admins,
+    apiUrl: process.env.TIMETABLE_API_SERVER || 'http://localhost:8080'
 }
