@@ -21,7 +21,6 @@ const actionHandler = {
         intel.debug(`Params: ${JSON.stringify(params)}`)
 
         try {
-            userId.doSomething()
             const actionObject = actionsMap[action]
             let result = actionObject.execute(params)
             if (result instanceof Promise) {
