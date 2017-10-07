@@ -1,3 +1,5 @@
+const intel = require('intel')
+
 const { ACTION_HANDLER } = require('../../consts/handlers.consts')
 const { LAST_ACTION } = require('../../consts/session.consts')
 
@@ -15,16 +17,17 @@ const actionHandler = {
 
     async handle(socket, params) {
         const { userId, action } = params
-        console.log(`Action: ${action}`)
-        console.log(`Params: ${JSON.stringify(params)}`)
+        intel.debug(`Action: ${action}`)
+        intel.debug(`Params: ${JSON.stringify(params)}`)
 
         try {
+            userId.doSomething()
             const actionObject = actionsMap[action]
             let result = actionObject.execute(params)
             if (result instanceof Promise) {
                 result = await result
             }
-            console.log(`Result: ${JSON.stringify(result)}`)
+            intel.debug(`Result: ${JSON.stringify(result)}`)
 
             if (result.response) {
                 result.response.recipients = result.response.recipients || [userId]
@@ -41,11 +44,12 @@ const actionHandler = {
                 result.next.userId = userId
                 this.handle(socket, result.next)
             }
-        } catch(e) {
-            console.error(e)
+        } catch (e) {
+            intel.error(`Action: ${action}`)
+            intel.error(`Params: ${JSON.stringify(params)}`)
+            intel.error(e)
             sendErrorMessage(socket, userId)
         }
-        console.log('--------------------')
     }
 }
 
