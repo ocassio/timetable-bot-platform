@@ -6,10 +6,17 @@ function sockets(io) {
     io.on('connect', socket => {
         const clientName = socket.handshake.query.name
         intel.info(`${clientName} client successfully connected`)
+
+        const settings = {
+            shortMessages: socket.handshake.query.shortMessages === 'true'
+        }
         
         handlers.forEach(handler => {
             socket.on(handler.name, params => {
-                handler.handle(socket, params)
+                handler.handle(socket, {
+                    ...params,
+                    settings
+                })
             })
         })
 

@@ -41,7 +41,10 @@ const actionHandler = {
 
             if (result.next) {
                 result.next.userId = userId
-                this.handle(socket, result.next)
+                this.handle(socket, {
+                    ...result.next,
+                    settings: params.settings
+                })
             }
         } catch (e) {
             intel.error(`Action: ${action}`)

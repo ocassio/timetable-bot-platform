@@ -7,7 +7,7 @@ const timetableAction = {
     
     name: TIMETABLE_ACTION,
 
-    async execute({ userId, dateRange, criterion: preselectedCriterion }) {
+    async execute({ userId, dateRange, criterion: preselectedCriterion, settings }) {
         const criterion = preselectedCriterion || await PreferencesService.getCriterion(userId)
         if (!criterion) {
             return {
@@ -20,7 +20,8 @@ const timetableAction = {
 
         const timetable = await APIService.getTimetable(criterion.type, criterion.id, dateRange.from, dateRange.to)
         const messages = timetable.length > 0 ?
-            timetable.map(day => this.getDayMessage(day)) :
+            [].concat.apply([],
+                timetable.map(day => this.getDayMessages(day, settings.shortMessages))) :
             ['Пары отсутствуют']
 
         return {
@@ -33,11 +34,21 @@ const timetableAction = {
         }
     },
 
-    getDayMessage(day) {
-        let message = `${day.dayOfWeek} - ${day.date}\n`
-        day.lessons.forEach(lesson => message += '\n' + this.getLessonMessage(lesson))
+    getDayMessages(day, shortMessages) {
+        const messages = []
+        
+        const date = `${day.dayOfWeek} - ${day.date}`
 
-        return message
+        if (shortMessages) {
+            messages.push(date)
+            day.lessons.forEach(lesson => messages.push(this.getLessonMessage(lesson)))
+        } else {
+            let message = `${date}\n`
+            day.lessons.forEach(lesson => message += '\n' + this.getLessonMessage(lesson))
+            messages.push(message)
+        }
+
+        return messages
     },
 
     getLessonMessage(lesson) {
