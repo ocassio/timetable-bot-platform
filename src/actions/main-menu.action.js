@@ -14,11 +14,11 @@ const mainMenuAction = {
     execute({ userId }) {
         const buttons = [
             {
-                label: 'Расписание',
+                label: 'Мое расписание',
                 action: SELECT_DATE_RANGE_ACTION
             },
             {
-                label: 'Расписание по критерию',
+                label: 'Расписание',
                 action: SELECT_CRITERION_ACTION,
                 params: {
                     customTimetable: true
