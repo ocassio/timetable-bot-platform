@@ -1,7 +1,13 @@
 const intel = require('intel')
+const auth = require('socketio-auth')
 const handlers = require('./handlers')
+const { tokens } = require('../configs/platform.config')
 
 function sockets(io) {
+
+    auth(io, {
+        authenticate: (socket, { token }, callback) => callback(null, tokens.includes(token))
+    })
 
     io.on('connect', socket => {
         const clientName = socket.handshake.query.name
